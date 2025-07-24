@@ -1,0 +1,86 @@
+{
+  "algorithm": "RIG",
+  "env_id": "SawyerPushNIPS-v0",
+  "exp_id": "0",
+  "exp_prefix": "07-19-rlkit-pusher-rig-example",
+  "grill_variant": {
+    "algo_kwargs": {
+      "her_kwargs": {},
+      "td3_kwargs": {
+        "batch_size": 128,
+        "discount": 0.99,
+        "max_path_length": 100,
+        "min_num_steps_before_training": 4000,
+        "num_epochs": 505,
+        "num_steps_per_epoch": 1000,
+        "num_steps_per_eval": 1000,
+        "num_updates_per_env_step": 4,
+        "reward_scale": 1
+      }
+    },
+    "desired_goal_key": "latent_desired_goal",
+    "exploration_noise": 0.2,
+    "exploration_type": "ou",
+    "normalize": false,
+    "observation_key": "latent_observation",
+    "policy_kwargs": {
+      "hidden_sizes": [
+        400,
+        300
+      ]
+    },
+    "qf_kwargs": {
+      "hidden_sizes": [
+        400,
+        300
+      ]
+    },
+    "render": false,
+    "replay_buffer_kwargs": {
+      "fraction_goals_env_goals": 0.5,
+      "fraction_goals_rollout_goals": 0.1,
+      "max_size": 1000000
+    },
+    "reward_params": {
+      "type": "latent_distance"
+    },
+    "save_video": true,
+    "save_video_period": 100,
+    "testing_mode": "test",
+    "training_mode": "train",
+    "vae_wrapped_env_kwargs": {
+      "sample_from_true_prior": true
+    }
+  },
+  "imsize": 84,
+  "init_camera": {
+    "$function": "multiworld.envs.mujoco.cameras.sawyer_init_camera_zoomed_in"
+  },
+  "instance_type": "None",
+  "seed": "75880",
+  "train_vae_variant": {
+    "algo_kwargs": {
+      "batch_size": 128,
+      "lr": 0.001
+    },
+    "beta": 0.078125,
+    "decoder_activation": "sigmoid",
+    "dump_skew_debug_plots": false,
+    "generate_vae_dataset_kwargs": {
+      "N": 10000,
+      "oracle_dataset_using_set_to_goal": false,
+      "random_rollout_data": true,
+      "show": false,
+      "test_p": 0.9,
+      "use_cached": true,
+      "vae_dataset_specific_kwargs": {}
+    },
+    "num_epochs": 501,
+    "representation_size": 4,
+    "save_period": 5,
+    "vae_kwargs": {
+      "input_channels": 3
+    },
+    "vae_path": null
+  }
+}

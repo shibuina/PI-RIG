@@ -1,0 +1,190 @@
+2025-07-24 15:43:45.033316 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] --------------------------------------  ---------------
+2025-07-24 15:43:45.033609 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/epoch                                  0
+2025-07-24 15:43:45.033675 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/Log Prob                          -14288.1
+2025-07-24 15:43:45.033735 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/KL                                    39.1849
+2025-07-24 15:43:45.033779 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/loss                               14291.1
+2025-07-24 15:43:45.033822 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Mean       0.0168207
+2025-07-24 15:43:45.033857 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Std        0.00158022
+2025-07-24 15:43:45.033900 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Max        0.0185633
+2025-07-24 15:43:45.033936 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Min        0.0132024
+2025-07-24 15:43:45.033973 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Mean            0.030806
+2025-07-24 15:43:45.034006 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Std             0.0696491
+2025-07-24 15:43:45.034045 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Max             0.309289
+2025-07-24 15:43:45.034077 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Min             0
+2025-07-24 15:43:45.034113 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of reconstruction                  0.0139853
+2025-07-24 15:43:45.034142 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/Log Prob                           -13971.1
+2025-07-24 15:43:45.034170 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/KL                                     68.45
+2025-07-24 15:43:45.034198 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/loss                                13976.5
+2025-07-24 15:43:45.034226 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] beta                                         0.078125
+2025-07-24 15:43:45.034255 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] --------------------------------------  ---------------
+2025-07-24 15:43:51.779983 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] --------------------------------------  ---------------
+2025-07-24 15:43:51.780097 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/epoch                                  1
+2025-07-24 15:43:51.780124 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/Log Prob                          -13905.4
+2025-07-24 15:43:51.780153 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/KL                                    71.287
+2025-07-24 15:43:51.780176 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/loss                               13911
+2025-07-24 15:43:51.780196 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Mean       0.00911787
+2025-07-24 15:43:51.780215 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Std        0.00139892
+2025-07-24 15:43:51.780239 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Max        0.0105173
+2025-07-24 15:43:51.780270 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Min        0.00430563
+2025-07-24 15:43:51.780289 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Mean            0.0161937
+2025-07-24 15:43:51.780308 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Std             0.052111
+2025-07-24 15:43:51.780328 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Max             0.370322
+2025-07-24 15:43:51.780347 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Min             0
+2025-07-24 15:43:51.780365 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of reconstruction                  0.00707585
+2025-07-24 15:43:51.780383 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/Log Prob                           -13822.1
+2025-07-24 15:43:51.780401 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/KL                                     69.4641
+2025-07-24 15:43:51.780418 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/loss                                13827.5
+2025-07-24 15:43:51.780436 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] beta                                         0.078125
+2025-07-24 15:43:51.780453 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] --------------------------------------  ---------------
+2025-07-24 15:43:57.541007 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] --------------------------------------  ---------------
+2025-07-24 15:43:57.541127 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/epoch                                  2
+2025-07-24 15:43:57.541174 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/Log Prob                          -13804.3
+2025-07-24 15:43:57.541212 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/KL                                    47.9883
+2025-07-24 15:43:57.541241 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/loss                               13808
+2025-07-24 15:43:57.541270 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Mean       0.00181606
+2025-07-24 15:43:57.541297 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Std        0.00151145
+2025-07-24 15:43:57.541324 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Max        0.00526257
+2025-07-24 15:43:57.541350 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Min       -9.6214e-05
+2025-07-24 15:43:57.541374 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Mean            0.0171866
+2025-07-24 15:43:57.541401 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Std             0.0441691
+2025-07-24 15:43:57.541427 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Max             0.761727
+2025-07-24 15:43:57.541454 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Min             0
+2025-07-24 15:43:57.541480 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of reconstruction                  0.0153705
+2025-07-24 15:43:57.541506 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/Log Prob                           -13707.1
+2025-07-24 15:43:57.541531 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/KL                                     28.2613
+2025-07-24 15:43:57.541570 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/loss                                13709.3
+2025-07-24 15:43:57.541598 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] beta                                         0.078125
+2025-07-24 15:43:57.541625 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] --------------------------------------  ---------------
+2025-07-24 15:44:04.847801 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] --------------------------------------  ----------------
+2025-07-24 15:44:04.847912 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/epoch                                  3
+2025-07-24 15:44:04.847940 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/Log Prob                          -13693.8
+2025-07-24 15:44:04.847965 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/KL                                    39.0394
+2025-07-24 15:44:04.847990 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/loss                               13696.9
+2025-07-24 15:44:04.848013 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Mean       0.0148334
+2025-07-24 15:44:04.848032 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Std        0.00227256
+2025-07-24 15:44:04.848049 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Max        0.0172477
+2025-07-24 15:44:04.848066 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Min        0.00542005
+2025-07-24 15:44:04.848082 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Mean            0.0202023
+2025-07-24 15:44:04.848098 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Std             0.0878301
+2025-07-24 15:44:04.848114 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Max             0.980938
+2025-07-24 15:44:04.848129 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Min             8.88178e-16
+2025-07-24 15:44:04.848144 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of reconstruction                  0.00536889
+2025-07-24 15:44:04.848160 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/Log Prob                           -13579.3
+2025-07-24 15:44:04.848176 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/KL                                     36.3432
+2025-07-24 15:44:04.848192 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/loss                                13582.2
+2025-07-24 15:44:04.848207 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] beta                                         0.078125
+2025-07-24 15:44:04.848223 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] --------------------------------------  ----------------
+2025-07-24 15:44:12.347749 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] --------------------------------------  ---------------
+2025-07-24 15:44:12.347864 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/epoch                                  4
+2025-07-24 15:44:12.347899 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/Log Prob                          -13611.8
+2025-07-24 15:44:12.347927 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/KL                                    46.0961
+2025-07-24 15:44:12.347946 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/loss                               13615.4
+2025-07-24 15:44:12.347973 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Mean       0.0212464
+2025-07-24 15:44:12.347990 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Std        0.00300203
+2025-07-24 15:44:12.348006 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Max        0.0232666
+2025-07-24 15:44:12.348022 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Min        0.00657982
+2025-07-24 15:44:12.348038 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Mean            0.0255582
+2025-07-24 15:44:12.348054 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Std             0.101864
+2025-07-24 15:44:12.348069 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Max             0.996248
+2025-07-24 15:44:12.348085 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Min             0
+2025-07-24 15:44:12.348101 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of reconstruction                  0.00431185
+2025-07-24 15:44:12.348126 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/Log Prob                           -13535.9
+2025-07-24 15:44:12.348143 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/KL                                     34.586
+2025-07-24 15:44:12.348159 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/loss                                13538.6
+2025-07-24 15:44:12.348175 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] beta                                         0.078125
+2025-07-24 15:44:12.348195 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] --------------------------------------  ---------------
+2025-07-24 15:44:18.391653 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] --------------------------------------  ----------------
+2025-07-24 15:44:18.391793 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/epoch                                  5
+2025-07-24 15:44:18.391822 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/Log Prob                          -13565.8
+2025-07-24 15:44:18.391844 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/KL                                    49.2846
+2025-07-24 15:44:18.391865 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/loss                               13569.6
+2025-07-24 15:44:18.391887 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Mean       0.0200794
+2025-07-24 15:44:18.391906 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Std        0.00309366
+2025-07-24 15:44:18.391925 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Max        0.0248477
+2025-07-24 15:44:18.391945 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Min        0.0113107
+2025-07-24 15:44:18.391965 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Mean            0.0250222
+2025-07-24 15:44:18.391984 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Std             0.101442
+2025-07-24 15:44:18.392003 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Max             0.998801
+2025-07-24 15:44:18.392021 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Min             8.88178e-16
+2025-07-24 15:44:18.392051 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of reconstruction                  0.0049428
+2025-07-24 15:44:18.392068 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/Log Prob                           -13497.9
+2025-07-24 15:44:18.392085 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/KL                                     34.2868
+2025-07-24 15:44:18.392101 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/loss                                13500.5
+2025-07-24 15:44:18.392117 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] beta                                         0.078125
+2025-07-24 15:44:18.392134 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] --------------------------------------  ----------------
+2025-07-24 15:44:25.586160 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] --------------------------------------  ----------------
+2025-07-24 15:44:25.586282 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/epoch                                  6
+2025-07-24 15:44:25.586314 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/Log Prob                          -13543.7
+2025-07-24 15:44:25.586345 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/KL                                    49.9146
+2025-07-24 15:44:25.586370 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/loss                               13547.6
+2025-07-24 15:44:25.586391 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Mean       0.0111751
+2025-07-24 15:44:25.586410 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Std        0.00539349
+2025-07-24 15:44:25.586430 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Max        0.0261006
+2025-07-24 15:44:25.586448 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Min        0.000259434
+2025-07-24 15:44:25.586468 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Mean            0.0161943
+2025-07-24 15:44:25.586487 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Std             0.0781066
+2025-07-24 15:44:25.586506 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Max             0.995812
+2025-07-24 15:44:25.586525 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Min             0
+2025-07-24 15:44:25.586543 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of reconstruction                  0.00501921
+2025-07-24 15:44:25.586561 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/Log Prob                           -13493.3
+2025-07-24 15:44:25.586579 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/KL                                     35.1827
+2025-07-24 15:44:25.586597 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/loss                                13496
+2025-07-24 15:44:25.586615 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] beta                                         0.078125
+2025-07-24 15:44:25.586633 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] --------------------------------------  ----------------
+2025-07-24 15:44:32.948640 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] --------------------------------------  ---------------
+2025-07-24 15:44:32.948795 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/epoch                                  7
+2025-07-24 15:44:32.948832 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/Log Prob                          -13531.6
+2025-07-24 15:44:32.948855 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/KL                                    49.9176
+2025-07-24 15:44:32.948877 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/loss                               13535.5
+2025-07-24 15:44:32.948897 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Mean       0.0259889
+2025-07-24 15:44:32.948916 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Std        0.00328018
+2025-07-24 15:44:32.948934 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Max        0.0319193
+2025-07-24 15:44:32.948953 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Min        0.0152778
+2025-07-24 15:44:32.948971 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Mean            0.0292674
+2025-07-24 15:44:32.949000 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Std             0.11234
+2025-07-24 15:44:32.949022 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Max             0.999432
+2025-07-24 15:44:32.949043 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Min             0
+2025-07-24 15:44:32.949063 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of reconstruction                  0.00327851
+2025-07-24 15:44:32.949083 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/Log Prob                           -13476.2
+2025-07-24 15:44:32.949104 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/KL                                     33.2998
+2025-07-24 15:44:32.949125 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/loss                                13478.8
+2025-07-24 15:44:32.949145 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] beta                                         0.078125
+2025-07-24 15:44:32.949165 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] --------------------------------------  ---------------
+2025-07-24 15:44:40.940953 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] --------------------------------------  ----------------
+2025-07-24 15:44:40.941077 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/epoch                                  8
+2025-07-24 15:44:40.941117 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/Log Prob                          -13517.2
+2025-07-24 15:44:40.941147 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/KL                                    49.7646
+2025-07-24 15:44:40.941175 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/loss                               13521.1
+2025-07-24 15:44:40.941199 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Mean       0.0265463
+2025-07-24 15:44:40.941223 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Std        0.00466364
+2025-07-24 15:44:40.941246 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Max        0.0370954
+2025-07-24 15:44:40.941271 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Min        0.0147496
+2025-07-24 15:44:40.941307 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Mean            0.0304358
+2025-07-24 15:44:40.941328 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Std             0.113536
+2025-07-24 15:44:40.941343 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Max             0.999728
+2025-07-24 15:44:40.941357 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Min             8.88178e-16
+2025-07-24 15:44:40.941378 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of reconstruction                  0.00388957
+2025-07-24 15:44:40.941394 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/Log Prob                           -13485
+2025-07-24 15:44:40.941412 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/KL                                     33.9588
+2025-07-24 15:44:40.941430 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/loss                                13487.6
+2025-07-24 15:44:40.941452 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] beta                                         0.078125
+2025-07-24 15:44:40.941468 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] --------------------------------------  ----------------
+2025-07-24 15:44:48.292580 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] --------------------------------------  ---------------
+2025-07-24 15:44:48.292696 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/epoch                                  9
+2025-07-24 15:44:48.292727 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/Log Prob                          -13509.5
+2025-07-24 15:44:48.292755 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/KL                                    47.1935
+2025-07-24 15:44:48.292781 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] train/loss                               13513.2
+2025-07-24 15:44:48.292804 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Mean       0.018939
+2025-07-24 15:44:48.292827 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Std        0.0053181
+2025-07-24 15:44:48.292850 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Max        0.0319688
+2025-07-24 15:44:48.292874 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE improvement over random Min        0.00930138
+2025-07-24 15:44:48.292898 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Mean            0.0243678
+2025-07-24 15:44:48.292923 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Std             0.0747094
+2025-07-24 15:44:48.292947 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Max             0.995597
+2025-07-24 15:44:48.292973 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of random decoding Min             0
+2025-07-24 15:44:48.293003 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] debug/MSE of reconstruction                  0.00542886
+2025-07-24 15:44:48.293034 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/Log Prob                           -13459.1
+2025-07-24 15:44:48.293064 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/KL                                     33.1257
+2025-07-24 15:44:48.293093 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] test/loss                                13461.6
+2025-07-24 15:44:48.293136 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] beta                                         0.078125
+2025-07-24 15:44:48.293170 +07 | [07-24-rlkit-pusher-rig-example_2025_07_24_15_42_39_0000--s-68299] --------------------------------------  ---------------
