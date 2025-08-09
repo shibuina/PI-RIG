@@ -8,7 +8,7 @@ if __name__ == "__main__":
     variant = dict(
         algo_kwargs=dict(
             td3_kwargs=dict(
-                num_epochs=501,
+                num_epochs=1001,
                 num_steps_per_epoch=1000,
                 num_steps_per_eval=1000,
                 max_path_length=100,
@@ -73,5 +73,5 @@ if __name__ == "__main__":
             exp_prefix=exp_prefix,
             mode=mode,
             variant=variant,
-            # use_gpu=True,  # Turn on if you have a GPU
+            use_gpu=True,  # Turn on if you have a GPU
         )

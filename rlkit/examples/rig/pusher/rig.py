@@ -84,5 +84,5 @@ if __name__ == "__main__":
         exp_prefix='rlkit-pusher-rig-example',
         mode='here_no_doodad',
         variant=variant,
-        # use_gpu=True,  # Turn on if you have a GPU
+        use_gpu=True,  # Turn on if you have a GPU
     )

@@ -73,14 +73,14 @@ def dump_video(
             print(i, time.time() - start)
 
     frames = np.array(frames, dtype=np.uint8).reshape(
-        (N, horizon + 1, H + 2 * pad_length, W + 2 * pad_length, num_channels))
+        (N, horizon, H + 2 * pad_length, W + 2 * pad_length, num_channels))
     f1 = []
     for k1 in range(columns):
         f2 = []
         for k2 in range(rows):
             k = k1 * rows + k2
             f2.append(frames[k:k + 1, :, :, :, :].
-                      reshape((horizon + 1, H + 2 * pad_length,
+                      reshape((horizon, H + 2 * pad_length,
                                W + 2 * pad_length, num_channels)))
         f1.append(np.concatenate(f2, axis=1))
     outputdata = np.concatenate(f1, axis=2)

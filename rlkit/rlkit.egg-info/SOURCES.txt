@@ -27,6 +27,7 @@ rlkit/exploration_strategies/gaussian_and_epsilon_strategy.py
 rlkit/exploration_strategies/gaussian_strategy.py
 rlkit/exploration_strategies/ou_strategy.py
 rlkit/launchers/__init__.py
+rlkit/launchers/config.py
 rlkit/launchers/config_template.py
 rlkit/launchers/launcher_util.py
 rlkit/launchers/rig_experiments.py
