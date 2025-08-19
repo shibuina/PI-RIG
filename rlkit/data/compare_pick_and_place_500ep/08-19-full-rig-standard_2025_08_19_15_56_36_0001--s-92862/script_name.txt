@@ -1,0 +1,1 @@
+/media/aiserver/New Volume/HDD_linux/bear/AIP/final_project_aip/rlkit/examples/rig/pick_and_place/full_rig_training_comparison.py
