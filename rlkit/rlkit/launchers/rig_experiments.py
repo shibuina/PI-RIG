@@ -25,7 +25,7 @@ from rlkit.exploration_strategies.base import (
     PolicyWrappedWithExplorationStrategy
 )
 from rlkit.torch.her.her import HerTd3
-from rlkit.torch.networks import FlattenMlp, TanhMlpPolicy
+from rlkit.torch.networks import TanhMlpPolicy, FlattenMlp
 from rlkit.util.video import dump_video
 import gymnasium
 import gymnasium_robotics

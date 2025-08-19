@@ -1,4 +1,5 @@
 from collections import OrderedDict
+import copy
 
 import numpy as np
 import torch.optim as optim
@@ -71,7 +72,7 @@ class DDPG(TorchRLAlgorithm):
         that varies with the epoch.
         :param kwargs:
         """
-        self.target_policy = policy.copy()
+        self.target_policy = copy.deepcopy(policy)
         if eval_with_target_policy:
             eval_policy = self.target_policy
         else:
@@ -104,7 +105,7 @@ class DDPG(TorchRLAlgorithm):
         self.min_q_value = min_q_value
         self.max_q_value = max_q_value
 
-        self.target_qf = self.qf.copy()
+        self.target_qf = copy.deepcopy(self.qf)
         self.qf_optimizer = optimizer_class(
             self.qf.parameters(),
             lr=self.qf_learning_rate,

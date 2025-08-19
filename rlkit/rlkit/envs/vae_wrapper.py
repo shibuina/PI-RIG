@@ -39,10 +39,10 @@ class VAEWrappedEnv(ProxyEnv, MultitaskEnv):
             epsilon=20,
             presampled_goals=None,
     ):
-        self.quick_init(locals())
         if reward_params is None:
             reward_params = dict()
         super().__init__(wrapped_env)
+        self.quick_init(locals())
         if type(vae) is str:
             self.vae = load_local_or_remote_file(vae)
         else:
