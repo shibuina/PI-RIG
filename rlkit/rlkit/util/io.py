@@ -116,5 +116,5 @@ def get_absolute_path(path):
         return local_path
 
 if __name__ == "__main__":
-    p = sync_down("ashvin/vae/new-point2d/run0/id1/params.pkl")
+    p = sync_down("ducanh/vae/new-point2d/run0/id1/params.pkl")
     print("got", p)

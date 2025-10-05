@@ -440,3 +440,14 @@ class VAEWrappedEnv(ProxyEnv, MultitaskEnv):
             return decoded, None
         else:
             raise AssertionError("Bad prefix for the vae input key.")
+        
+def temporary_mode(env, mode, func, args=None, kwargs=None):
+    if args is None:
+        args = []
+    if kwargs is None:
+        kwargs = {}
+    cur_mode = env.cur_mode
+    env.mode(env._mode_map[mode])
+    return_val = func(*args, **kwargs)
+    env.mode(cur_mode)
+    return return_val

@@ -30,7 +30,7 @@ def example(variant):
     logger.log('Local date & time is: {}'.format(date.strftime(date_format)))
 
     logger.log("start mujoco")
-    from gym.envs.mujoco import HalfCheetahEnv
+    from gymnasium.envs.mujoco import HalfCheetahEnv
     e = HalfCheetahEnv()
     img = e.sim.render(32, 32)
     logger.log(str(sum(img)))

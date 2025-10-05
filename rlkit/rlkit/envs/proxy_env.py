@@ -1,4 +1,4 @@
-from gym import Env
+from gymnasium import Env
 
 
 class ProxyEnv(Env):
@@ -38,7 +38,7 @@ class ProxyEnv(Env):
         This is useful to override in case the wrapped env has some funky
         __getstate__ that doesn't play well with overriding __getattr__.
 
-        The main problematic case is/was gym's EzPickle serialization scheme.
+        The main problematic case is/was gymnasium's EzPickle serialization scheme.
         :return:
         """
         return self.__dict__

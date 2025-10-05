@@ -4,8 +4,8 @@ import mujoco_py
 import numpy as np
 import torch
 from PIL import Image
-from gym import Env
-from gym.spaces import Box
+from gymnasium import Env
+from gymnasium.spaces import Box
 
 from rlkit.envs.proxy_env import ProxyEnv
 

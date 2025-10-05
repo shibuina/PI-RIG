@@ -109,6 +109,7 @@ def train_vae_and_update_variant(variant):
 
 
 def generate_vae_dataset(variant):
+    print(variant)
     env_class = variant.get('env_class', None)
     env_kwargs = variant.get('env_kwargs', None)
     env_id = variant.get('env_id', None)
