@@ -22,10 +22,16 @@ This script will:
 
 ## 🚀 Running the Code
 
-### Run the Variational Autoencoder (VAE) for representation learning:
+### Run the Physics-Informed Variational Autoencoder (VAE) for representation learning:
 
 ```bash
-python rlkit/examples/rig/pusher/rig.py
+python rlkit/examples/rig/pusher/physics_informed_rig.py
+```
+
+### Run the Base Reinforcement learning based on Imaginary Goals (RIG):
+
+```bash
+python rlkit/examples/rig/pusher/physics_informed_rig.py
 ```
 
 ### Run the RL algorithm (e.g. SAC) using RIG:
@@ -34,7 +40,42 @@ python rlkit/examples/rig/pusher/rig.py
 python rlkit/examples/rig/pusher/oracle.py
 ```
 
-These scripts use the visual-based `Pusher` environment to demonstrate representation learning and reinforcement learning using RIG (Representation Learning for Goal-Conditioned RL).
+These scripts use the visual-based `Pusher` environment to demonstrate representation learning and reinforcement learning using RIG (Representation Learning for Goal-Conditioned RL) with physics-informed constraints.
+
+---
+
+## 📊 Visualizing Results and Policies
+
+### Viewing Training Results
+During training, results are saved to:
+```
+rlkit/data/<exp_prefix>/<foldername>/
+```
+
+To visualize training progress and metrics, use viskit:
+```bash
+python viskit/viskit/frontend.py rlkit/data/<exp_prefix>/
+```
+
+For a single experiment:
+```bash
+python viskit/viskit/frontend.py rlkit/data/<exp_prefix>/<foldername>/
+```
+
+### Visualizing Trained Policies
+```bash
+python rlkit/scripts/sim_policy.py rlkit/data/<exp_prefix>/<foldername>/params.pkl
+```
+**Example:**
+After running `physics_informed_rig.py`, you might find results in a folder like:
+```
+rlkit/data/pusher-physics-rig/2025_10_05_12_34_56_000000--s-0/
+```
+
+Then visualize with:
+```bash
+python rlkit/scripts/sim_policylicy.py rlkit/data/pusher-physics-rig/2025_10_05_12_34_56_000000--s-0/params.pkl
+```
 
 ---
 

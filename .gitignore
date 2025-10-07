@@ -212,3 +212,7 @@ htmlcov/
 
 # Profiling
 *.prof
+
+rlkit/data/
+test.py
+documents/

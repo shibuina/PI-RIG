@@ -4,6 +4,35 @@
 ENV_NAME="final"
 ENV_PATH="$HOME/anaconda3/envs/$ENV_NAME"
 
+# Function to check if a system package is installed
+is_system_package_installed() {
+    dpkg -l | grep -q "^ii  $1 "
+}
+
+# Check and install required system packages
+echo "Checking for required system packages..."
+
+REQUIRED_PACKAGES=("libgl1-mesa-glx" "libglu1-mesa" "libosmesa6" "ffmpeg")
+PACKAGES_TO_INSTALL=()
+
+for package in "${REQUIRED_PACKAGES[@]}"; do
+    if is_system_package_installed "$package"; then
+        echo "$package is already installed."
+    else
+        echo "$package is not installed. Adding to install list..."
+        PACKAGES_TO_INSTALL+=("$package")
+    fi
+done
+
+# Install missing packages if any
+if [ ${#PACKAGES_TO_INSTALL[@]} -gt 0 ]; then
+    echo "Installing missing packages: ${PACKAGES_TO_INSTALL[*]}"
+    sudo apt-get update
+    sudo apt-get install -y "${PACKAGES_TO_INSTALL[@]}"
+else
+    echo "All required system packages are already installed."
+fi
+
 # Check if the conda environment exists
 if [ -d "$ENV_PATH" ]; then
     echo "Conda environment '$ENV_NAME' already exists at $ENV_PATH. Proceeding..."
