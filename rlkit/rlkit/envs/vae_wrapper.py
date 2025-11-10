@@ -39,10 +39,10 @@ class VAEWrappedEnv(ProxyEnv, MultitaskEnv):
             epsilon=20,
             presampled_goals=None,
     ):
-        self.quick_init(locals())
         if reward_params is None:
             reward_params = dict()
         super().__init__(wrapped_env)
+        self.quick_init(locals())
         if type(vae) is str:
             self.vae = load_local_or_remote_file(vae)
         else:
@@ -440,3 +440,14 @@ class VAEWrappedEnv(ProxyEnv, MultitaskEnv):
             return decoded, None
         else:
             raise AssertionError("Bad prefix for the vae input key.")
+        
+def temporary_mode(env, mode, func, args=None, kwargs=None):
+    if args is None:
+        args = []
+    if kwargs is None:
+        kwargs = {}
+    cur_mode = env.cur_mode
+    env.mode(env._mode_map[mode])
+    return_val = func(*args, **kwargs)
+    env.mode(cur_mode)
+    return return_val

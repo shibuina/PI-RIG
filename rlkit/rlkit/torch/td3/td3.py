@@ -1,4 +1,5 @@
 from collections import OrderedDict
+import copy
 
 import numpy as np
 import torch
@@ -56,9 +57,9 @@ class TD3(TorchRLAlgorithm):
         self.tau = tau
         self.qf_criterion = qf_criterion
 
-        self.target_policy = policy.copy()
-        self.target_qf1 = self.qf1.copy()
-        self.target_qf2 = self.qf2.copy()
+        self.target_policy = copy.deepcopy(policy)
+        self.target_qf1 = copy.deepcopy(self.qf1)
+        self.target_qf2 = copy.deepcopy(self.qf2)
         self.qf1_optimizer = optimizer_class(
             self.qf1.parameters(),
             lr=qf_learning_rate,

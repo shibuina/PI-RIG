@@ -138,6 +138,7 @@ results/
 experiments/
 checkpoints/
 snapshots/
+skewfit_testing/
 
 # Model files
 *.pkl

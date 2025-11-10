@@ -25,7 +25,7 @@ from rlkit.exploration_strategies.base import (
     PolicyWrappedWithExplorationStrategy
 )
 from rlkit.torch.her.her import HerTd3
-from rlkit.torch.networks import FlattenMlp, TanhMlpPolicy
+from rlkit.torch.networks import TanhMlpPolicy, FlattenMlp
 from rlkit.util.video import dump_video
 import gymnasium
 import gymnasium_robotics
@@ -109,6 +109,7 @@ def train_vae_and_update_variant(variant):
 
 
 def generate_vae_dataset(variant):
+    print(variant)
     env_class = variant.get('env_class', None)
     env_kwargs = variant.get('env_kwargs', None)
     env_id = variant.get('env_id', None)
