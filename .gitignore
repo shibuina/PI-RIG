@@ -215,3 +215,4 @@ htmlcov/
 *.prof
 
 documents/
+**/__pycache__/
