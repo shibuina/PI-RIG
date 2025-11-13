@@ -5,94 +5,127 @@ Hamiltonian RIG experiments (drop-in)
 - Runs the standard RIG (HER+TD3) experiment
 """
 
-import os
 import torch
-from rlkit.core import logger
-from rlkit.torch import pytorch_util as ptu
-from rlkit.torch.vae.conv_vae import ConvVAE
-
-# Baseline helpers (dataset, preprocess, RL stage)
 from rlkit.launchers.rig_experiments import (
     full_experiment_variant_preprocess,
     generate_vae_dataset,
-    grill_her_td3_experiment,   # RL stage after VAE training
+    get_envs, get_exploration_strategy,  # giữ nguyên import như bản gốc
 )
-
-# Your Hamilton trainer (make sure import path matches your repo)
 from rlkit.torch.vae.hamilton_vae_trainer import HamiltonVAETrainer
+from rlkit.torch.vae.vae_trainer import ConvVAETrainer
+from rlkit.torch.vae.conv_vae import ConvVAE
+import rlkit.torch.vae.conv_vae as conv_vae
+from rlkit.torch import pytorch_util as ptu
+from rlkit.pythonplusplus import identity
+from rlkit.core import logger
 
 
-def _train_hamilton_vae_and_update_variant(variant):
+def train_hamilton_vae(variant, return_data=False):
     """
-    1) Build dataset (exactly like baseline)
-    2) Build ConvVAE
-    3) Train with HamiltonVAETrainer
-    4) Save VAE and write back into variant for RL stage
+    Train a Hamiltonian VAE (giống train_physics_informed_vae)
     """
-    tvv = variant['train_vae_variant']
-    algo = tvv.setdefault('algo_kwargs', {})
+    beta = variant["beta"]
+    representation_size = variant["representation_size"]
 
-    # 1) dataset (baseline helper adds env_id, camera, imsize, etc.)
-    train_data, test_data = generate_vae_dataset(variant)
-
-    # 2) VAE model (mirror baseline args)
-    rep_size = tvv['representation_size']
-    imsize = variant['imsize']
-    vae_kwargs = dict(tvv.get('vae_kwargs', {}))
-    vae = ConvVAE(representation_size=rep_size, imsize=imsize, **vae_kwargs).to(ptu.device)
-
-    # 3) Hamilton trainer (only Hamilton-specific args here)
-    trainer = HamiltonVAETrainer(
-        train_data, test_data, vae,
-        batch_size=algo.get('batch_size', 128),
-        beta=tvv.get('beta', 0.5),
-        lr=algo.get('lr', 1e-3),
-        q_dim=algo.get('q_dim', 1),
-        p_dim=algo.get('p_dim', 1),
-        hidden=algo.get('hidden', 128),
-        dt=algo.get('dt', 0.05),
-        lambda_dyn=algo.get('lambda_dyn', 1.0),
-        lambda_energy=algo.get('lambda_energy', 0.1),
-        energy_mode=algo.get('energy_mode', 'const'),  # 'const' | 'decay' | 'none'
-        rollout_K=algo.get('rollout_K', 0),
+    generate_vae_dataset_fctn = variant.get('generate_vae_data_fctn', generate_vae_dataset)
+    train_data, test_data, info = generate_vae_dataset_fctn(
+        variant['generate_vae_dataset_kwargs']
     )
+    logger.save_extra_data(info)
+    logger.get_snapshot_dir()
 
-    num_epochs = int(tvv.get('num_epochs', 300))
-    save_period = int(tvv.get('save_period', 10))
+    if variant.get('decoder_activation', None) == 'sigmoid':
+        decoder_activation = torch.nn.Sigmoid()
+    else:
+        decoder_activation = identity
 
-    for epoch in range(num_epochs):
-        trainer.train_epoch(epoch)
-        # keep test path consistent with your trainers
-        save_now = (epoch % save_period == 0) or (epoch == num_epochs - 1)
-        trainer.test_epoch(epoch, save_reconstruction=save_now, save_vae=save_now)
+    architecture = variant['vae_kwargs'].get('architecture', None)
+    if not architecture and variant.get('imsize') == 84:
+        architecture = conv_vae.imsize84_default_architecture
+    elif not architecture and variant.get('imsize') == 48:
+        architecture = conv_vae.imsize48_default_architecture
+    variant['vae_kwargs']['architecture'] = architecture
+    variant['vae_kwargs']['imsize'] = variant.get('imsize')
 
-    # 4) Save VAE and update variant for the RL stage
-    snapshot_dir = logger.get_snapshot_dir()
-    os.makedirs(snapshot_dir, exist_ok=True)
-    vae_path = os.path.join(snapshot_dir, 'hamilton_vae.pt')
-    # Save whole module (same style many rlkit forks expect)
-    torch.save(vae, vae_path)
+    m = ConvVAE(
+        representation_size,
+        decoder_output_activation=decoder_activation,
+        **variant['vae_kwargs']
+    )
+    m.to(ptu.device)
 
-    # Write back into grill variant for the RL stage
-    gv = variant.setdefault('grill_variant', {})
-    gv['vae_path'] = vae_path
-    gv['representation_size'] = rep_size
-    gv.setdefault('vae_wrapped_env_kwargs', {})
-    # (leave other RL config untouched; baseline uses gv for the RL stage)
+    trainer_class = variant.get('trainer_class', ConvVAETrainer)
+
+    if trainer_class == HamiltonVAETrainer:
+        print("Using Hamilton VAE Trainer")
+        t = HamiltonVAETrainer(
+            train_data, test_data, m, beta=beta,
+            **variant['algo_kwargs']
+        )
+    else:
+        print("Using Standard VAE Trainer")
+        t = ConvVAETrainer(
+            train_data, test_data, m, beta=beta,
+            **variant['algo_kwargs']
+        )
+
+    save_period = variant['save_period']
+    for epoch in range(variant['num_epochs']):
+        should_save_imgs = (epoch % save_period == 0)
+        t.train_epoch(epoch)
+        t.test_epoch(
+            epoch,
+            save_reconstruction=should_save_imgs,
+        )
+        if should_save_imgs:
+            t.dump_samples(epoch)
+
+    logger.save_extra_data(m, 'vae.pkl', mode='pickle')
+    if return_data:
+        return m, train_data, test_data
+    return m
+
+
+def train_vae_and_update_variant_hamilton(variant):
+
+    grill_variant = variant['grill_variant']
+    train_vae_variant = variant['train_vae_variant']
+
+    if grill_variant.get('vae_path', None) is None:
+        logger.remove_tabular_output('progress.csv', relative_to_snapshot_dir=True)
+        logger.add_tabular_output('vae_progress.csv', relative_to_snapshot_dir=True)
+
+        vae, vae_train_data, vae_test_data = train_hamilton_vae(
+            train_vae_variant,
+            return_data=True,
+        )
+
+        if grill_variant.get('save_vae_data', False):
+            grill_variant['vae_train_data'] = vae_train_data
+            grill_variant['vae_test_data'] = vae_test_data
+        logger.save_extra_data(vae, 'vae.pkl', mode='pickle')
+
+        logger.remove_tabular_output('vae_progress.csv', relative_to_snapshot_dir=True)
+        logger.add_tabular_output('progress.csv', relative_to_snapshot_dir=True)
+
+        grill_variant['vae_path'] = vae
+    else:
+        grill_variant['vae_path'] = variant['train_vae_variant']['vae_path']
+
+    if grill_variant.get('vae_path', None) is None:
+
+        grill_variant['vae_path'] = grill_variant['train_vae_variant']['generate_vae_dataset_kwargs']
 
 
 def hamilton_grill_her_td3_full_experiment(variant):
     """
-    Full Hamiltonian RIG:
-      - preprocess (mutates variant in place)
-      - train Hamilton VAE and update variant (vae_path, etc.)
-      - run the standard RIG RL stage
+    Full RIG + Hamilton VAE (giống physics_informed_grill_her_td3_full_experiment)
     """
-    # DO NOT reassign; this mutates in place and returns None in many versions
+    # preprocess (mutate in place)
     full_experiment_variant_preprocess(variant)
 
-    # Train VAE with the Hamilton trainer and update variant
-    _train_hamilton_vae_and_update_variant(variant)
+    # Train VAE (Hamilton) và cập nhật variant
+    train_vae_and_update_variant_hamilton(variant)
 
-    # Run the standard RL, identical to baseline
+    from rlkit.launchers.rig_experiments import grill_her_td3_experiment
     return grill_her_td3_experiment(variant['grill_variant'])

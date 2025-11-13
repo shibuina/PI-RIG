@@ -10,7 +10,7 @@ from multiworld.envs.mujoco.cameras import sawyer_init_camera_zoomed_in
 from rlkit.launchers.launcher_util import run_experiment
 from rlkit.launchers.rig_experiments import grill_her_td3_full_experiment
 from rlkit.launchers.hamilton_rig_experiments import hamilton_grill_her_td3_full_experiment
-# from rlkit.torch.vae.hamilton_vae_trainer import HamiltonVAETrainer
+from rlkit.torch.vae.hamilton_vae_trainer import HamiltonVAETrainer
 
 if __name__ == "__main__":
     variant = dict(
@@ -68,6 +68,7 @@ if __name__ == "__main__":
             num_epochs=300,
             dump_skew_debug_plots=False,
             decoder_activation='sigmoid',
+            trainer_class=HamiltonVAETrainer,  # Use default HamiltonVAETrainer
             generate_vae_dataset_kwargs=dict(
                 N=1000,
                 test_p=.9,

@@ -63,18 +63,18 @@ class HamiltonVAETrainer(ConvVAETrainer):
             batch_size=128,
             log_interval=0,
             beta=0.5,
-            learning_rate=1e-3,
+            lr=1e-3,
             do_scatterplot=False,
             normalize=False,
             mse_weight=0.1,
             is_auto_encoder=False,
-            background_subtraction=False,
+            background_subtract=False,
             q_dim=1,
             p_dim=1,
             hidden=128,
             dt=0.05,
-            lamda_dyn=1.0,
-            lamda_energy=1.0,
+            lambda_dyn=1.0,
+            lambda_energy=1.0,
             energy_mode='const',  # 'const', 'decay', 'none'
             rollout_K=0,
     ):
@@ -92,14 +92,14 @@ class HamiltonVAETrainer(ConvVAETrainer):
         self.input_channels = model.input_channels
         self.imlength = model.imlength
 
-        self.lr = learning_rate
+        self.lr = lr
         params = list(self.model.parameters())
         self.optimizer = optim.Adam(params, lr=self.lr)
         self.train_dataset, self.test_dataset = train_dataset, test_dataset
         self.batch_size = batch_size
         self.normalize = normalize
         self.mse_weight = mse_weight
-        self.background_subtraction = background_subtraction
+        self.background_subtract = background_subtract
 
         self.evaluation_statistics = None
         self.vae_logger_stats_for_rl = {}
@@ -115,8 +115,8 @@ class HamiltonVAETrainer(ConvVAETrainer):
         z_dim = getattr(model, 'representation_size', self.representation_size)
         self.q_dim, self.p_dim = q_dim, p_dim
         self.dt = dt
-        self.lamda_dyn = float(lamda_dyn)
-        self.lamda_energy = float(lamda_energy)
+        self.lambda_dyn = float(lambda_dyn)
+        self.lambda_energy = float(lambda_energy)
         self.energy_mode = str(energy_mode)
         self.rollout_K = int(rollout_K)
 
@@ -172,7 +172,7 @@ class HamiltonVAETrainer(ConvVAETrainer):
                 inc = torch.clamp(H_t1 - H_t, min=0.)
                 L_energy = torch.mean(inc**2)
 
-        L_total = self.lamda_dyn * (L_dyn + L_roll) + self.lamda_energy * L_energy 
+        L_total = self.lambda_dyn * (L_dyn + L_roll) + self.lambda_energy * L_energy 
         
         return {'ham_dyn': L_dyn,
                 'ham_roll': L_roll,
@@ -194,7 +194,7 @@ class HamiltonVAETrainer(ConvVAETrainer):
             img_t = ((img_t - self.train_data_mean) + 1) / 2
             img_t1 = ((img_t1 - self.train_data_mean) + 1) / 2
 
-        if self.background_subtraction:
+        if self.background_subtract:
             img_t = img_t - self.train_data_mean
             img_t1 = img_t1 - self.train_data_mean
 
