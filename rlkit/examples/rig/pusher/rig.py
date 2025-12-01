@@ -6,7 +6,7 @@ if __name__ == "__main__":
     variant = dict(
         imsize=84,
         init_camera=sawyer_init_camera_zoomed_in,
-        env_id='SawyerPushNIPS-v0',
+        env_id='SawyerReachXYEnv-v1',
         grill_variant=dict(
             save_video=True,
             save_video_period=100,
@@ -18,7 +18,7 @@ if __name__ == "__main__":
             ),
             algo_kwargs=dict(
                 td3_kwargs=dict(
-                    num_epochs=505,
+                    num_epochs=200,
                     num_steps_per_epoch=1000,
                     num_steps_per_eval=1000,
                     min_num_steps_before_training=4000,
@@ -54,7 +54,7 @@ if __name__ == "__main__":
             vae_path=None,
             representation_size=4,
             beta=10.0 / 128,
-            num_epochs=501,
+            num_epochs=200,
             dump_skew_debug_plots=False,
             decoder_activation='sigmoid',
             generate_vae_dataset_kwargs=dict(
