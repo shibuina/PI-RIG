@@ -1,0 +1,67 @@
+{
+  "algo_kwargs": {
+    "her_kwargs": {
+      "desired_goal_key": "state_desired_goal",
+      "observation_key": "state_observation"
+    },
+    "td3_kwargs": {
+      "batch_size": 128,
+      "discount": 0.99,
+      "max_path_length": 100,
+      "min_num_steps_before_training": 4000,
+      "num_epochs": 301,
+      "num_steps_per_epoch": 1000,
+      "num_steps_per_eval": 1000,
+      "num_updates_per_env_step": 4,
+      "render": false,
+      "reward_scale": 1.0,
+      "tau": 0.01
+    }
+  },
+  "algorithm": "Oracle",
+  "desired_goal_key": "state_desired_goal",
+  "do_state_exp": true,
+  "env_class": {
+    "$class": "multiworld.envs.mujoco.sawyer_xyz.sawyer_push_nips.SawyerPushAndReachXYEasyEnv"
+  },
+  "env_kwargs": {
+    "hide_goal": true,
+    "reward_info": {
+      "type": "state_distance"
+    }
+  },
+  "es_kwargs": {
+    "max_sigma": 0.2
+  },
+  "exp_id": "0",
+  "exp_prefix": "08-13-rlkit-pusher-oracle-from-ari-fixed-logprob",
+  "exploration_type": "ou",
+  "imsize": 84,
+  "init_camera": {
+    "$function": "multiworld.envs.mujoco.cameras.sawyer_pusher_camera_upright_v2"
+  },
+  "instance_type": "None",
+  "observation_key": "state_observation",
+  "policy_kwargs": {
+    "hidden_sizes": [
+      400,
+      300
+    ]
+  },
+  "qf_kwargs": {
+    "hidden_sizes": [
+      400,
+      300
+    ]
+  },
+  "replay_buffer_kwargs": {
+    "fraction_goals_env_goals": 0.5,
+    "fraction_goals_rollout_goals": 0.1,
+    "max_size": 1000000
+  },
+  "save_video": true,
+  "seed": "48485",
+  "snapshot_gap": 50,
+  "snapshot_mode": "gap_and_last",
+  "version": "normal"
+}
