@@ -129,6 +129,7 @@ dmypy.json
 .pyre/
 
 # RLKit specific files
+rlkit_original/
 rlkit/data/
 multiworld/data/
 data/
@@ -214,6 +215,5 @@ htmlcov/
 # Profiling
 *.prof
 
-rlkit/data/
 test.py
 documents/

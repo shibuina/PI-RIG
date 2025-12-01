@@ -15,6 +15,9 @@ from rlkit.pythonplusplus import identity
 from rlkit.envs.vae_wrapper import VAEWrappedEnv
 from rlkit.torch.vae.conv_vae import ConvVAE
 from rlkit.torch.vae.vae_trainer import ConvVAETrainer
+from rlkit.torch.vae.pinn_vae_trainer import PINNVAETrainer
+from rlkit.torch.vae.p3_vae_trainer import P3VAETrainer
+from rlkit.torch.vae.enhanced_p3_vae_trainer import EnhancedP3VAETrainer
 
 import rlkit.samplers.rollout_functions as rf
 import rlkit.torch.pytorch_util as ptu
@@ -269,8 +272,57 @@ def train_vae(variant, return_data=False):
         **variant['vae_kwargs']
     )
     m.to(ptu.device)
-    t = ConvVAETrainer(train_data, test_data, m, beta=beta,
-                       **variant['algo_kwargs'])
+    
+    # Select the appropriate trainer based on the variant
+    trainer_class = variant.get('trainer_class', ConvVAETrainer)
+    
+    if trainer_class == P3VAETrainer or trainer_class == 'P3VAETrainer':
+        # Filter out unsupported P3VAE kwargs (reacher-specific physics parameters)
+        p3vae_supported_keys = {
+            'physics_weight', 'physics_type', 'z_I_dim', 'z_E_dim', 'dt',
+            'use_beta_distribution', 'enable_contact_dynamics', 'enable_friction',
+            'enable_conservation_laws', 'physics_regularization_weight'
+        }
+        filtered_p3vae_kwargs = {}
+        for key, value in variant['algo_kwargs'].items():
+            if key in p3vae_supported_keys:
+                filtered_p3vae_kwargs[key] = value
+        
+        t = P3VAETrainer(train_data, test_data, m, beta=beta,
+                         **filtered_p3vae_kwargs)
+    elif trainer_class == PINNVAETrainer or trainer_class == 'PINNVAETrainer':
+        t = PINNVAETrainer(train_data, test_data, m, beta=beta,
+                           **variant['algo_kwargs'])
+    elif trainer_class == EnhancedP3VAETrainer or trainer_class == 'EnhancedP3VAETrainer':
+        # Enhanced P3-VAE trainer with physics-informed components
+        enhanced_p3vae_supported_keys = {
+            'physics_weight', 'physics_type', 'z_I_dim', 'z_E_dim', 'dt',
+            'use_physics_constraints', 'pde_weight', 'conservation_weight', 
+            'regularization_weight', 'grad_clip_value'
+        }
+        filtered_enhanced_kwargs = {}
+        for key, value in variant['algo_kwargs'].items():
+            if key in enhanced_p3vae_supported_keys:
+                filtered_enhanced_kwargs[key] = value
+        
+        t = EnhancedP3VAETrainer(train_data, test_data, m, beta=beta,
+                                 **filtered_enhanced_kwargs)
+    else:
+        # Default to ConvVAETrainer, but filter out P3/PINN-specific kwargs
+        filtered_kwargs = {}
+        p3_pinn_specific_keys = {
+            'physics_weight', 'z_I_dim', 'z_E_dim', 'physics_loss_weight',
+            'pinn_weight', 'physics_function', 'physics_lambda',
+            'physics_type', 'dt', 'use_beta_distribution',
+            'enable_contact_dynamics', 'enable_friction', 
+            'enable_conservation_laws', 'physics_regularization_weight'
+        }
+        for key, value in variant['algo_kwargs'].items():
+            if key not in p3_pinn_specific_keys:
+                filtered_kwargs[key] = value
+        
+        t = ConvVAETrainer(train_data, test_data, m, beta=beta,
+                           **filtered_kwargs)
     save_period = variant['save_period']
     for epoch in range(variant['num_epochs']):
         should_save_imgs = (epoch % save_period == 0)
