@@ -1,1 +1,1 @@
-/media/aiserver/New Volume/HDD_linux/bear/AIP/final_project_aip/run_skewfit_reacher.py
+/media/aiserver/New Volume/HDD_linux/bear/AIP/PI-RIG/rlkit/examples/rig/reacher/skewfit.py

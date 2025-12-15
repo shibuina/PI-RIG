@@ -93,7 +93,7 @@
     "representation_size": 8,
     "save_period": 10,
     "trainer_class": {
-      "$class": "rlkit.torch.vae.p3_vae_trainer.P3VAETrainer"
+      "$class": "rlkit.torch.vae.conditional_vae_trainer.DeltaCVAETrainer"
     },
     "vae_kwargs": {
       "input_channels": 3

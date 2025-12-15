@@ -1,1 +1,1 @@
-/home/ducanh/final/skewfit_test/rlkit/examples/ccrig/ccrig_pusher.py
+/media/aiserver/New Volume/HDD_linux/bear/AIP/final_project_aip/rlkit/examples/rig/pusher/ccrig.py
