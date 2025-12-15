@@ -1,15 +1,30 @@
 # Physics-Informed RIG: Goal-Conditioned RL with Physics Constraints
 
-This project implements **Physics-Informed RIG (Representation Learning for Goal-Conditioned RL)** using [RLKit](https://github.com/vitchyr/rlkit) and [Multiworld](https://github.com/vitchyr/multiworld). The main contribution is comparing physics-informed vs standard representation learning for robotic pick-and-place tasks.
+This project implements **Physics-Informed RIG (PI-RIG)**, a novel approach that integrates physics constraints into goal-conditioned reinforcement learning using [RLKit](https://github.com/vitchyr/rlkit) and [Multiworld](https://github.com/vitchyr/multiworld). The methodology incorporates an **Enhanced P³-VAE** architecture with physics-informed goal sampling for improved robotic manipulation tasks.
 
 ## 🎯 Project Overview
 
-This research compares two approaches to goal-conditioned reinforcement learning:
+### Core Methodology
 
-1. **Physics-Informed RIG**: Incorporates physics constraints (gravity, momentum, contact forces) into VAE representation learning
-2. **Standard RIG**: Uses standard VAE representation learning without physics constraints
+**Physics-Informed RIG** follows a four-stage pipeline:
 
-The comparison is performed on the **Sawyer Pick and Place** robotic manipulation task.
+1. **Data Collection**: Random/exploratory policy interaction to collect visual trajectories
+2. **Representation Learning**: Enhanced P³-VAE with integrated physics constraints  
+3. **Physics-Informed Goal Sampling**: Goals filtered by physical validity and reachability
+4. **RL Training**: Goal-conditioned policy training with physics-consistent goals
+
+### Key Innovations
+
+- **Enhanced P³-VAE**: Latent space decomposed into physics-intrinsic and environmental variables
+- **Physics Constraints**: Momentum conservation, gravity modeling, temporal consistency
+- **Semi-Supervised Learning**: Leverages ground truth physics states from MuJoCo simulator
+- **Multi-Task Support**: Validated on pusher, pick-and-place, and reacher tasks
+
+### Supported Robotic Tasks
+
+- **Pusher**: Object manipulation with puck pushing
+- **Pick-and-Place**: Object manipulation with Sawyer arm robot  
+- **Reacher**: Point reaching with arm dynamics
 
 ---
 
@@ -29,91 +44,70 @@ This script will:
 
 ---
 
-## 🚀 Running the Code
+## 🚀 Running Experiments
 
-### Run the Physics-Informed Variational Autoencoder (VAE) for representation learning:
+### Task-Specific Physics-Informed RIG
 
+**Pusher Task:**
 ```bash
-python rlkit/examples/rig/pusher/physics_informed_rig.py
+python rlkit/examples/rig/pusher/pi_rig.py
 ```
 
-### Run the Base Reinforcement learning based on Imaginary Goals (RIG):
-
-## 🚀 Main Experiments
-
-### Physics-Informed vs Standard RIG Comparison
-
-Run the main paper experiment comparing both approaches:
-Note: before you run the code, please change your sys path (line 5-7 in code file) to your main folder directory to handle import problems
+**Pick-and-Place Task:**
 ```bash
-python rlkit/examples/rig/pusher/physics_informed_rig.py
-# Navigate to the pick and place experiments
-cd rlkit/examples/rig/pick_and_place
-
-# # Run VAE-only comparison 
-# python physics_vs_standard_rig_comparison.py
-
-# Run complete RIG training comparison (VAE + RL training)
-python full_rig_training_comparison.py
+python rlkit/examples/rig/pick_and_place/pi_rig.py
 ```
 
-Similarly, for pusher run: 
+**Reacher Task:**
 ```bash
-python rlkit/examples/rig/pusher/physics_informed_rig.py
-```
-### Visualization
-The result will be saved in 2 folder with suffix *full-rig-physics and *full-rig-standard, you can copy the subfolder to a new folder to compare between 2 algorithm
-Example:
-```bash
-python -m viskit.frontend rlkit/data/compare_pick_and_place_500ep/ 
-```
-For pusher, run:
-```bash
-python -m viskit.frontend rlkit/data/compare_pusher/
+python rlkit/examples/rig/reacher/pi_rig.py
 ```
 
-For a simple demonstration of physics-informed representation learning:
+### Baseline Comparisons
 
-```bash
-cd rlkit/examples/rig/pick_and_place
-python simple_physics_comparison.py
-```
+Each task directory contains comparison baselines:
+- `rig.py`: Standard RIG without physics constraints
+- `oracle.py`: Oracle with ground truth goals
+- `skewfit.py`: SkewFit baseline
+- `ccrig.py`: Curiosity-driven RIG variant
+### Configuration Testing
 
-These scripts use the visual-based `Pusher` environment to demonstrate representation learning and reinforcement learning using RIG (Representation Learning for Goal-Conditioned RL) with physics-informed constraints.
+Validate PI-RIG configuration for each task:
+
+
+### Task-Specific Notes
+
+**Important**: Update the system path (lines 5-7) in experiment files to match your project directory to resolve import issues.
+
+**Pusher**: Manipulation with physics constraints on puck dynamics
+**Pick-and-Place**: Manipulation with grasp stability and object physics  
+**Reacher**: Point reaching with joint dynamics and momentum conservation
 
 ---
 
 ## 📊 Visualizing Results and Policies
 
 ### Viewing Training Results
-During training, results are saved to:
+Results are saved to task-specific directories:
 ```
-rlkit/data/<exp_prefix>/<foldername>/
-```
-
-To visualize training progress and metrics, use viskit:
-```bash
-python viskit/viskit/frontend.py rlkit/data/<exp_prefix>/
+rlkit/data/<task>/<timestamp>/
 ```
 
-For a single experiment:
+**Visualize training metrics:**
 ```bash
-python viskit/viskit/frontend.py rlkit/data/<exp_prefix>/<foldername>/
+# Pusher results
+python -m viskit.frontend rlkit/data/pusher_final/
+
+# Pick-and-place results  
+python -m viskit.frontend rlkit/data/compare_pick_and_place_final/
+
+# Reacher results
+python -m viskit.frontend rlkit/data/reacher_final/
 ```
 
-### Visualizing Trained Policies
+### Policy Simulation
 ```bash
-python rlkit/scripts/sim_policy.py rlkit/data/<exp_prefix>/<foldername>/params.pkl
-```
-**Example:**
-After running `physics_informed_rig.py`, you might find results in a folder like:
-```
-rlkit/data/pusher-physics-rig/2025_10_05_12_34_56_000000--s-0/
-```
-
-Then visualize with:
-```bash
-python rlkit/scripts/sim_policylicy.py rlkit/data/pusher-physics-rig/2025_10_05_12_34_56_000000--s-0/params.pkl
+python rlkit/scripts/sim_policy.py rlkit/data/<task>/<timestamp>/params.pkl
 ```
 
 ---
@@ -122,82 +116,82 @@ python rlkit/scripts/sim_policylicy.py rlkit/data/pusher-physics-rig/2025_10_05_
 
 ```
 .
-├── README.md                           # This file
-├── setup.sh                           # Environment setup script
-├── env.yml                            # Conda environment specification
-├── requirements.txt                   # Python package requirements
-├── rlkit/                             # Modified RLKit with physics-informed components
-│   ├── examples/rig/pick_and_place/   # Main pick-and-place experiments
-│   │   ├── physics_vs_standard_rig_comparison.py    # VAE comparison (working)
-│   │   ├── full_rig_training_comparison.py          # Complete RIG comparison
-│   │   ├── simple_physics_comparison.py             # Quick demo
-│   │   ├── physics_informed_rig.py                  # Core implementation
-│   │   └── README.md                               # Detailed experiment guide
-│   ├── rlkit/torch/vae/               # VAE implementations
-│   │   ├── pick_and_place_physics.py  # Physics-informed VAE trainer
-│   │   └── vae_trainer.py             # Standard VAE trainer
-│   └── rlkit/torch/grill/             # GRILL framework integration
-│       └── common.py                  # Common VAE training utilities
-│
-├── multiworld/                        # Goal-conditioned environments
-│   └── envs/mujoco/sawyer_xyz/        # Sawyer robot environments
-└── viskit/                           # Visualization tools
+├── README.md                          # This file
+├── setup.sh                          # Environment setup script  
+├── env.yml                           # Conda environment specification
+├── requirements.txt                  # Python package requirements
+├── paper/
+│   └── methodology.tex               # Detailed methodology description
+├── rlkit/                           # Modified RLKit with PI-RIG components
+│   ├── examples/rig/                # Task-specific experiments
+│   │   ├── pusher/                  # Pusher manipulation
+│   │   │   ├── pi_rig.py           # Physics-Informed RIG 
+│   │   │   ├── rig.py              # Standard RIG baseline
+│   │   │   ├── oracle.py           # Oracle baseline
+│   │   │   ├── skewfit.py          # SkewFit baseline
+│   │   │   └── ccrig.py            # Curiosity-driven RIG
+│   │   ├── pick_and_place/         # 3D pick-and-place manipulation
+│   │   │   ├── pi_rig.py           # Physics-Informed RIG
+│   │   │   ├── rig.py              # Standard RIG baseline
+│   │   │   ├── oracle.py           # Oracle baseline
+│   │   │   ├── skewfit.py          # SkewFit baseline
+│   │   │   └── ccrig.py            # Curiosity-driven RIG
+│   │   └── reacher/                # 2-DOF reacher task
+│   │       ├── pi_rig.py           # Physics-Informed RIG
+│   │       ├── rig.py              # Standard RIG baseline
+│   │       ├── oracle.py           # Oracle baseline
+│   │       ├── skewfit.py          # SkewFit baseline
+│   │       └── ccrig.py            # Curiosity-driven RIG
+│   └── rlkit/torch/vae/            # Core VAE implementations
+│       ├── enhanced_p3_vae_trainer.py     # Enhanced P³-VAE
+│       ├── physics_informed_goal_sampling.py  # Goal sampling
+│       └── vae_trainer.py          # Standard VAE trainer
+├── multiworld/                     # Goal-conditioned environments
+│   └── envs/                      # MuJoCo environments
+└── viskit/                        # Training visualization tools
 ```
 
 ---
 
 ## 🔬 Key Features
 
-### Physics-Informed Representation Learning
-- **Temporal Consistency**: Ensures smooth latent transitions
-- **Momentum Conservation**: Enforces physics-based momentum constraints  
-- **Gravity Modeling**: Incorporates gravitational effects
-- **Contact Forces**: Models object-object and robot-object interactions
-- **Grasp Stability**: Ensures realistic grasping physics
+### Enhanced P³-VAE Architecture
+- **Latent Space Decomposition**: Physics-intrinsic (z_I) and environmental (z_E) variables
+- **Physics-Guided Encoder**: CNN backbone with task-specific physics heads
+- **Semi-Supervised Learning**: Leverages ground truth physics states from MuJoCo
+- **Multi-Loss Training**: VAE reconstruction + physics consistency + conservation laws
 
-### Comparison Metrics
-- **Success Rates**: Task completion rates for pick-and-place
-- **Sample Efficiency**: Learning speed and data requirements
-- **Generalization**: Performance on unseen object configurations
-- **Representation Quality**: Latent space interpretability and structure
+### Physics Constraints Integration
+- **Temporal Consistency**: Smooth latent state transitions across time
+- **Momentum Conservation**: Enforces realistic dynamics in latent space
+- **Task-Specific Physics**: 
+  - Pusher: Collision physics
+  - Pick-and-Place: Grasp stability, gravity
+  - Reacher: Joint dynamics, angular momentum
 
----
-
-## 📊 Expected Results
-
-The physics-informed approach should demonstrate:
-- **Higher success rates** on pick-and-place tasks
-- **Better generalization** to new object configurations  
-- **More sample-efficient** RL training
-- **More interpretable** learned representations
-- **Improved stability** in manipulation policies
+### Physics-Informed Goal Sampling
+- **Validity Filtering**: Goals filtered by physical plausibility P(z_g)
+- **Reachability Assessment**: Goals evaluated for state-conditional reachability R(z_g|s_t)
+- **Dynamic Adjustment**: Goal difficulty adapts during training
 
 ---
 
-## 🛠 Development Notes
+## � References
 
-This project extends the original RLKit and Multiworld frameworks with:
-- Custom physics-informed VAE trainers
-- Enhanced loss functions incorporating physics constraints
-- Robotic manipulation-specific physics modeling
-- Comprehensive comparison and evaluation tools
-
----
-
-## 📖 References
-
-- [RLKit](https://github.com/vitchyr/rlkit): Deep RL algorithms and utilities
-- [Multiworld](https://github.com/vitchyr/multiworld): Goal-conditioned environments
-- Original RIG paper: "Hindsight Experience Replay for Image-Based Robotic Manipulation"
+- [RLKit (BAIR)](https://github.com/vitchyr/rlkit): Deep RL algorithms and utilities
+- [Multiworld (BAIR)](https://github.com/vitchyr/multiworld): Goal-conditioned environments  
+- [RIG Paper](https://arxiv.org/abs/1807.04742): "Self-Supervised Visual RL with Imagined Goals"
+- [VAE-based Goal Generation](https://arxiv.org/abs/1806.09920): "Visual RL with Imagined Goals"
 
 ---
 
-## 📚 References
+## 🤝 Contributing
 
-- [RLKit (BAIR)](https://github.com/vitchyr/rlkit)
-- [Multiworld (BAIR)](https://github.com/vitchyr/multiworld)
-- [RIG: Self-Supervised Visual RL with Imagined Goals](https://arxiv.org/abs/1807.04742)
+For questions, issues, or contributions:
+1. Check existing issues and documentation
+2. Validate configuration with task-specific test scripts
+3. Test on all three supported tasks (pusher, pick-and-place, reacher)
 
 ---
 
-Feel free to reach out if you encounter any issues or want to extend this setup to other environments or algorithms.
+Feel free to reach out if you encounter any issues or want to extend this framework to other robotic tasks.
