@@ -24,9 +24,9 @@ except Exception as e:
     print("Falling back to OSMesa software rendering")
 
 # Add required paths
-sys.path.insert(0, '/media/aiserver/New Volume/HDD_linux/bear/AIP/final_project_aip')
-sys.path.insert(0, '/media/aiserver/New Volume/HDD_linux/bear/AIP/final_project_aip/rlkit')
-sys.path.insert(0, '/media/aiserver/New Volume/HDD_linux/bear/AIP/final_project_aip/multiworld')
+sys.path.insert(0, '/media/aiserver/New Volume/HDD_linux/bear/AIP/PI-RIG')
+sys.path.insert(0, '/media/aiserver/New Volume/HDD_linux/bear/AIP/PI-RIG/rlkit')
+sys.path.insert(0, '/media/aiserver/New Volume/HDD_linux/bear/AIP/PI-RIG/multiworld')
 
 from multiworld.envs.mujoco.cameras import sawyer_init_camera_zoomed_in
 from rlkit.launchers.launcher_util import run_experiment

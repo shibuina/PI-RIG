@@ -15,8 +15,6 @@ from rlkit.pythonplusplus import identity
 from rlkit.envs.vae_wrapper import VAEWrappedEnv
 from rlkit.torch.vae.conv_vae import ConvVAE
 from rlkit.torch.vae.vae_trainer import ConvVAETrainer
-from rlkit.torch.vae.pinn_vae_trainer import PINNVAETrainer
-from rlkit.torch.vae.p3_vae_trainer import P3VAETrainer
 from rlkit.torch.vae.enhanced_p3_vae_trainer import EnhancedP3VAETrainer
 
 import rlkit.samplers.rollout_functions as rf
@@ -452,6 +450,15 @@ def get_envs(variant):
         """
         if presampled_goals_path is None:
             image_env.non_presampled_goal_img_is_garbage = True
+            # Filter out physics-specific parameters that VAEWrappedEnv doesn't support
+            vae_wrapped_kwargs = variant.get('vae_wrapped_env_kwargs', {}).copy()
+            physics_params_to_filter = [
+                'use_physics_goal_sampling', 'goal_sampling_candidates', 'physics_type',
+                'workspace_radius', 'max_angular_velocity', 'joint_limits'
+            ]
+            for param in physics_params_to_filter:
+                vae_wrapped_kwargs.pop(param, None)
+                
             vae_env = VAEWrappedEnv(
                 image_env,
                 vae,
@@ -460,7 +467,7 @@ def get_envs(variant):
                 render_goals=render,
                 render_rollouts=render,
                 reward_params=reward_params,
-                **variant.get('vae_wrapped_env_kwargs', {})
+                **vae_wrapped_kwargs
             )
             presampled_goals = variant['generate_goal_dataset_fctn'](
                 env=vae_env,
@@ -482,6 +489,15 @@ def get_envs(variant):
             presampled_goals=presampled_goals,
             **variant.get('image_env_kwargs', {})
         )
+        # Filter out physics-specific parameters that VAEWrappedEnv doesn't support
+        vae_wrapped_kwargs = variant.get('vae_wrapped_env_kwargs', {}).copy()
+        physics_params_to_filter = [
+            'use_physics_goal_sampling', 'goal_sampling_candidates', 'physics_type',
+            'workspace_radius', 'max_angular_velocity', 'joint_limits'
+        ]
+        for param in physics_params_to_filter:
+            vae_wrapped_kwargs.pop(param, None)
+            
         vae_env = VAEWrappedEnv(
             image_env,
             vae,
@@ -491,10 +507,19 @@ def get_envs(variant):
             render_rollouts=render,
             reward_params=reward_params,
             presampled_goals=presampled_goals,
-            **variant.get('vae_wrapped_env_kwargs', {})
+            **vae_wrapped_kwargs
         )
         print("Presampling all goals only")
     else:
+        # Filter out physics-specific parameters that VAEWrappedEnv doesn't support
+        vae_wrapped_kwargs = variant.get('vae_wrapped_env_kwargs', {}).copy()
+        physics_params_to_filter = [
+            'use_physics_goal_sampling', 'goal_sampling_candidates', 'physics_type',
+            'workspace_radius', 'max_angular_velocity', 'joint_limits'
+        ]
+        for param in physics_params_to_filter:
+            vae_wrapped_kwargs.pop(param, None)
+            
         vae_env = VAEWrappedEnv(
             image_env,
             vae,
@@ -503,7 +528,7 @@ def get_envs(variant):
             render_goals=render,
             render_rollouts=render,
             reward_params=reward_params,
-            **variant.get('vae_wrapped_env_kwargs', {})
+            **vae_wrapped_kwargs
         )
         if presample_image_goals_only:
             presampled_goals = variant['generate_goal_dataset_fctn'](

@@ -1,4 +1,5 @@
 import numpy as np
+import time
 
 
 def create_rollout_function(rollout_function, **initial_kwargs):
@@ -49,6 +50,9 @@ def multitask_rollout(
     if animated:
         env.render()
     goal = o[desired_goal_key]
+    # Add a delay to observe the goal before the policy starts acting
+    if animated:
+        time.sleep(2)  # Wait 2 seconds to observe the goal
     while path_length < max_path_length:
         full_observations.append(o)
         o = o[observation_key]

@@ -9,7 +9,7 @@ from rlkit.launchers.rig_experiments import (
     generate_vae_dataset,
     get_envs, get_exploration_strategy
 )
-from rlkit.torch.vae.physics_informed_vae_trainer import PhysicsInformedConvVAETrainer
+from rlkit.torch.vae.enhanced_p3_vae_trainer import EnhancedP3VAETrainer
 from rlkit.torch.vae.vae_trainer import ConvVAETrainer
 from rlkit.torch.vae.conv_vae import ConvVAE
 import rlkit.torch.vae.conv_vae as conv_vae
@@ -45,28 +45,63 @@ def train_physics_informed_vae(variant, return_data=False):
     variant['vae_kwargs']['architecture'] = architecture
     variant['vae_kwargs']['imsize'] = variant.get('imsize')
 
-    # Create VAE model
+    # Filter physics-specific parameters for ConvVAE creation
+    # These will be handled by EnhancedP3VAETrainer internally
+    vae_model_kwargs = variant['vae_kwargs'].copy()
+    physics_params = ['physics_type', 'z_I_dim', 'z_E_dim', 'hidden_dim']
+    for param in physics_params:
+        vae_model_kwargs.pop(param, None)
+
+    # Create VAE model (standard ConvVAE, physics handled in trainer)
     m = ConvVAE(
         representation_size,
         decoder_output_activation=decoder_activation,
-        **variant['vae_kwargs']
+        **vae_model_kwargs
     )
     m.to(ptu.device)
     
-    # Use physics-informed trainer if specified
-    trainer_class = variant.get('trainer_class', ConvVAETrainer)
+    # Use Enhanced P³-VAE trainer if specified (methodology implementation)
+    trainer_class = variant.get('vae_trainer_class', variant.get('trainer_class', ConvVAETrainer))
     
-    if trainer_class == PhysicsInformedConvVAETrainer:
-        print("Using Physics-Informed VAE Trainer")
-        t = PhysicsInformedConvVAETrainer(
-            train_data, test_data, m, beta=beta,
-            **variant['algo_kwargs']
+    if (trainer_class == EnhancedP3VAETrainer or 
+        variant.get('use_physics_informed', False) or 
+        variant.get('use_physics_constraints', False)):
+        print(" Using Enhanced P³-VAE Trainer (Physics-Informed)")
+        print(" ODE-based temporal consistency enabled")
+        print(" Physics constraints integration enabled")
+        
+        # Filter parameters supported by EnhancedP3VAETrainer
+        supported_params = {
+            'batch_size', 'log_interval', 'beta', 'lr', 'do_scatterplot', 
+            'normalize', 'mse_weight', 'is_auto_encoder', 'background_subtract',
+            'physics_weight', 'physics_type', 'z_I_dim', 'z_E_dim', 'dt',
+            'use_physics_constraints', 'conservation_weight', 
+            'regularization_weight', 'grad_clip_value'
+        }
+        
+        # Remove unsupported parameters from algo_kwargs
+        algo_kwargs = {}
+        for key, value in variant['algo_kwargs'].items():
+            if key in supported_params:
+                algo_kwargs[key] = value
+        
+        # Add beta if not present
+        if 'beta' not in algo_kwargs:
+            algo_kwargs['beta'] = beta
+            
+        t = EnhancedP3VAETrainer(
+            train_data, test_data, m,
+            **algo_kwargs
         )
     else:
-        print("Using Standard VAE Trainer")
+        print("📊 Using Standard VAE Trainer")
+        # Remove duplicate beta from algo_kwargs if present
+        algo_kwargs = variant['algo_kwargs'].copy()
+        if 'beta' not in algo_kwargs:
+            algo_kwargs['beta'] = beta
         t = ConvVAETrainer(
-            train_data, test_data, m, beta=beta,
-            **variant['algo_kwargs']
+            train_data, test_data, m,
+            **algo_kwargs
         )
     
     save_period = variant['save_period']

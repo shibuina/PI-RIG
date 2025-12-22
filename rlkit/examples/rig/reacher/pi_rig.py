@@ -2,31 +2,31 @@ import sys
 import os
 import subprocess
 
-# Set environment variables for headless rendering before importing mujoco
-os.environ['MUJOCO_GL'] = 'egl'  # Use EGL for headless rendering
-os.environ['EGL_DEVICE_ID'] = '0'  # Use GPU 0
-os.environ['gpu_id'] = '0'  # Set GPU device for mujoco_env
+# # Set environment variables for headless rendering before importing mujoco
+# os.environ['MUJOCO_GL'] = 'egl'  # Use EGL for headless rendering
+# os.environ['EGL_DEVICE_ID'] = '0'  # Use GPU 0
+# os.environ['gpu_id'] = '0'  # Set GPU device for mujoco_env
 
-# Try to start xvfb for virtual display if not already running
-try:
-    subprocess.run(['pkill', 'Xvfb'], capture_output=True)  # Kill existing Xvfb
-    subprocess.Popen(['Xvfb', ':99', '-screen', '0', '1024x768x24', '-ac', '+extension', 'GLX'], 
-                     stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    os.environ['DISPLAY'] = ':99'
-    print("Started virtual display :99")
-    print("Using EGL rendering with GPU")
-except Exception as e:
-    print(f"Could not start virtual display: {e}")
-    # Fallback to osmesa for software rendering
-    os.environ['MUJOCO_GL'] = 'osmesa'
-    os.environ.pop('EGL_DEVICE_ID', None)  # Remove EGL device
-    os.environ.pop('DISPLAY', None)  # Remove display requirement
-    print("Falling back to OSMesa software rendering")
+# # Try to start xvfb for virtual display if not already running
+# try:
+#     subprocess.run(['pkill', 'Xvfb'], capture_output=True)  # Kill existing Xvfb
+#     subprocess.Popen(['Xvfb', ':99', '-screen', '0', '1024x768x24', '-ac', '+extension', 'GLX'], 
+#                      stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+#     os.environ['DISPLAY'] = ':99'
+#     print("Started virtual display :99")
+#     print("Using EGL rendering with GPU")
+# except Exception as e:
+#     print(f"Could not start virtual display: {e}")
+#     # Fallback to osmesa for software rendering
+#     os.environ['MUJOCO_GL'] = 'osmesa'
+#     os.environ.pop('EGL_DEVICE_ID', None)  # Remove EGL device
+#     os.environ.pop('DISPLAY', None)  # Remove display requirement
+#     print("Falling back to OSMesa software rendering")
 
 # Add required paths
-sys.path.insert(0, '/media/aiserver/New Volume/HDD_linux/bear/AIP/final_project_aip')
-sys.path.insert(0, '/media/aiserver/New Volume/HDD_linux/bear/AIP/final_project_aip/rlkit')
-sys.path.insert(0, '/media/aiserver/New Volume/HDD_linux/bear/AIP/final_project_aip/multiworld')
+sys.path.insert(0, '/media/aiserver/New Volume/HDD_linux/bear/AIP/PI-RIG')
+sys.path.insert(0, '/media/aiserver/New Volume/HDD_linux/bear/AIP/PI-RIG/rlkit')
+sys.path.insert(0, '/media/aiserver/New Volume/HDD_linux/bear/AIP/PI-RIG/multiworld')
 
 from multiworld.envs.mujoco.cameras import sawyer_init_camera_zoomed_in
 from rlkit.launchers.launcher_util import run_experiment
@@ -331,7 +331,7 @@ if __name__ == "__main__":
         assert vae_config['z_I_dim'] == 4, "Reacher task should use 4D physics latent (θ₁, θ₂, θ̇₁, θ̇₂)"
         assert vae_config['z_E_dim'] == 4, "Environment latent should be 4D per methodology"
         assert vae_config['physics_weight'] == 0.25, "Physics weight should be 0.2-0.25 for reacher (Table 1)"
-        assert vae_config['batch_size'] == 128, "Batch size should be 128 (Table 1)"
+        assert vae_config['algo_kwargs']['batch_size'] == 128, "Batch size should be 128 (Table 1)"
         assert vae_config['num_epochs'] == 300, "VAE training should use 300 epochs (Table 1)"
         
         # Physics parameters validation (Table 2 - Reacher)

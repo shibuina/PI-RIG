@@ -7,9 +7,9 @@ This script implements complete Physics-Informed RIG training including:
 3. Policy evaluation and video generation
 """
 import sys
-sys.path.insert(0, '/media/aiserver/New Volume/HDD_linux/bear/AIP/final_project_aip')
-sys.path.insert(0, '/media/aiserver/New Volume/HDD_linux/bear/AIP/final_project_aip/rlkit')
-sys.path.insert(0, '/media/aiserver/New Volume/HDD_linux/bear/AIP/final_project_aip/multiworld')
+sys.path.insert(0, '/media/aiserver/New Volume/HDD_linux/bear/AIP/PI-RIG')
+sys.path.insert(0, '/media/aiserver/New Volume/HDD_linux/bear/AIP/PI-RIG/rlkit')
+sys.path.insert(0, '/media/aiserver/New Volume/HDD_linux/bear/AIP/PI-RIG/multiworld')
 
 import json
 import time
@@ -29,7 +29,7 @@ from multiworld.envs.mujoco.cameras import sawyer_pick_and_place_camera
 from rlkit.torch.grill.common import train_vae
 
 # Import Enhanced P³-VAE components 
-from rlkit.torch.vae.enhanced_p3_vae_trainer import EnhancedP3VAETrainer, EnhancedP3VAE
+from rlkit.torch.vae.enhanced_p3_vae_trainer import EnhancedP3VAETrainer
 from rlkit.torch.vae.pick_and_place_physics_config import (
     get_pick_and_place_physics_config,
     create_pick_and_place_vae_trainer_kwargs,

@@ -316,12 +316,19 @@ class VAEWrappedEnv(ProxyEnv, MultitaskEnv):
     
     def mode(self, mode_name):
         """Set the current mode of the environment."""
-        if hasattr(self.wrapped_env, 'mode'):
-            if mode_name in self._mode_map:
-                self.wrapped_env.mode(self._mode_map[mode_name])
-            else:
-                self.wrapped_env.mode(mode_name)
-        # If wrapped env doesn't have mode, just store it
+        try:
+            # Try to access the wrapped environment's mode method
+            wrapped_env = getattr(self, 'wrapped_env', None) or getattr(self, '_wrapped_env', None)
+            if wrapped_env and hasattr(wrapped_env, 'mode'):
+                if mode_name in self._mode_map:
+                    wrapped_env.mode(self._mode_map[mode_name])
+                else:
+                    wrapped_env.mode(mode_name)
+        except AttributeError:
+            # If we can't access the wrapped env or it doesn't have mode, just continue
+            pass
+        
+        # Always store the current mode
         self.cur_mode = mode_name
 
     @property

@@ -22,6 +22,11 @@ from rlkit.torch.networks.mlp import (
 from rlkit.torch.networks.pretrained_cnn import PretrainedCNN
 from rlkit.torch.networks.two_headed_mlp import TwoHeadMlp
 
+# Import utility functions that might be used in pickled objects
+def identity(x):
+    """Identity function that returns its input unchanged."""
+    return x
+
 __all__ = [
     'Clamp',
     'ConcatMlp',
@@ -47,5 +52,6 @@ __all__ = [
     'Split',
     'TwoHeadDCNN',
     'TwoHeadMlp',
+    'identity',
 ]
 
