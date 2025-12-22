@@ -176,12 +176,11 @@ python rlkit/scripts/sim_policy.py rlkit/data/<task>/<timestamp>/params.pkl
 
 ---
 
-## � References
+## References
 
 - [RLKit (BAIR)](https://github.com/vitchyr/rlkit): Deep RL algorithms and utilities
 - [Multiworld (BAIR)](https://github.com/vitchyr/multiworld): Goal-conditioned environments  
 - [RIG Paper](https://arxiv.org/abs/1807.04742): "Self-Supervised Visual RL with Imagined Goals"
-- [VAE-based Goal Generation](https://arxiv.org/abs/1806.09920): "Visual RL with Imagined Goals"
 
 ---
 
