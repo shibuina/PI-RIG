@@ -555,18 +555,18 @@ class PhysicsLossCalculator(nn.Module):
         θ1_ddot_actual = (θ1_dot_t1 - θ1_dot_t) / self.dt
         θ2_ddot_actual = (θ2_dot_t1 - θ2_dot_t) / self.dt
         
-        # 2-link arm dynamics (simplified model)
+        # 2-link arm dynamics
         # M(q)q̈ + C(q,q̇)q̇ + G(q) = τ - F(q̇)
         L1, L2 = self.link1_length, self.link2_length
         m1, m2 = self.link1_mass, self.link2_mass
         
-        # Mass matrix elements (simplified)
+        # Mass matrix elements 
         M11 = (m1 + m2) * L1**2 + m2 * L2**2 + 2 * m2 * L1 * L2 * torch.cos(θ2_t)
         M12 = m2 * L2**2 + m2 * L1 * L2 * torch.cos(θ2_t)
         M21 = M12
         M22 = m2 * L2**2
         
-        # Coriolis terms (simplified)
+        # Coriolis terms 
         C1 = -m2 * L1 * L2 * torch.sin(θ2_t) * (2 * θ1_dot_t * θ2_dot_t + θ2_dot_t**2)
         C2 = m2 * L1 * L2 * torch.sin(θ2_t) * θ1_dot_t**2
         
@@ -1190,9 +1190,9 @@ class EnhancedP3VAETrainer(ConvVAETrainer):
         self._init_logging_keys()
         
         print(f"Enhanced P3-VAE initialized for {physics_type} with z_I_dim={z_I_dim}, z_E_dim={z_E_dim}")
-        print(f"✅ ODE Physics Integration: {'torchdiffeq' if HAS_TORCHDIFFEQ else 'Euler fallback'}")
-        print(f"✅ Temporal Consistency: dz_I/dt = f_physics(z_I, t; θ_physics)")
-        print(f"✅ Physics Dynamics Network: {self.physics_dynamics_net.__class__.__name__}")
+        print(f" ODE Physics Integration: {'torchdiffeq' if HAS_TORCHDIFFEQ else 'Euler fallback'}")
+        print(f" Temporal Consistency: dz_I/dt = f_physics(z_I, t; θ_physics)")
+        print(f" Physics Dynamics Network: {self.physics_dynamics_net.__class__.__name__}")
     
     def _init_logging_keys(self):
         """Initialize consistent logging keys to prevent table key changes"""
@@ -1206,7 +1206,7 @@ class EnhancedP3VAETrainer(ConvVAETrainer):
             'pde_loss': 0.0,
             'ode_temporal_loss': 0.0,
             'pde_physics_loss': 0.0,
-            'contact_dynamics_loss': 0.0,  # New: Contact dynamics loss from methodology Eq. 6
+            'contact_dynamics_loss': 0.0, 
             'regularization_loss': 0.0,
             
             # Latent statistics
@@ -1495,10 +1495,15 @@ class EnhancedP3VAETrainer(ConvVAETrainer):
         
         return unsupervised_loss, loss_dict
     
-    def _compute_classification_loss(self, batch_images, gt_physics, device):
+    def _compute_physics_regression_loss(self, batch_images, gt_physics, device):
         """
-        Compute classification/regression loss L_c(φ; z_I*) for physics prediction.
+        Compute physics regression loss L_c(φ; z_I*) for physics state prediction.
         Uses the PhysicsStateExtractor to map from compressed latent z_I to interpretable physics variables.
+        
+        This is NOT classification - it's regression of continuous physics variables like:
+        - Pusher: [hand_x, hand_y, puck_x, puck_y] 
+        - Pick-and-Place: [gripper_opening, hand_xyz, obj_xyz]
+        - Reacher: [θ₁, θ₂, θ̇₁, θ̇₂]
         
         Args:
             batch_images: Input images [batch_size, C, H, W]
@@ -1506,7 +1511,7 @@ class EnhancedP3VAETrainer(ConvVAETrainer):
             device: Device for computation
             
         Returns:
-            torch.Tensor: Classification/regression loss
+            torch.Tensor: Physics regression loss (MSE between predicted and ground truth physics)
         """
         # Encode physics variables from images to get compressed latent representation z_I
         z_I_stats = self.encoder.encode_physics(batch_images)
@@ -1516,9 +1521,9 @@ class EnhancedP3VAETrainer(ConvVAETrainer):
         physics_predicted = self.physics_extractor(z_I_compressed)
         
         # MSE loss between extracted physics variables and ground truth
-        classification_loss = F.mse_loss(physics_predicted, gt_physics, reduction='mean')
+        physics_regression_loss = F.mse_loss(physics_predicted, gt_physics, reduction='mean')
         
-        return classification_loss
+        return physics_regression_loss
 
     def compute_enhanced_loss(self, batch, epoch, ground_truth_physics=None, supervision_ratio=0.5):
         """
@@ -1593,13 +1598,13 @@ class EnhancedP3VAETrainer(ConvVAETrainer):
             for key, value in unsupervised_dict.items():
                 loss_dict[f"unsupervised_{key}"] = value
         
-        # 3. CLASSIFICATION/REGRESSION LOSS: L_c(φ; z_I*) for physics prediction
+        # 3. PHYSICS REGRESSION LOSS: L_c(φ; z_I*) for physics prediction
         if batch_supervised is not None and gt_physics_supervised is not None:
-            classification_loss = self._compute_classification_loss(
+            physics_regression_loss = self._compute_physics_regression_loss(
                 batch_supervised, gt_physics_supervised, device
             )
-            total_loss += self.physics_weight * classification_loss
-            loss_dict['classification_loss'] = classification_loss.item()
+            total_loss += self.physics_weight * physics_regression_loss
+            loss_dict['physics_regression_loss'] = physics_regression_loss.item()
         
         # Encode full batch to get latent statistics for analysis
         z_I_stats = self.encoder.encode_physics(batch)
@@ -1632,8 +1637,7 @@ class EnhancedP3VAETrainer(ConvVAETrainer):
         kl_z_I = torch.clamp(kl_z_I, max=10.0)
         kl_z_E = torch.clamp(kl_z_E, max=10.0)
         
-        # 6. Physics constraints: L_physics = L_kinematic + L_newton + L_momentum + L_energy + L_contact
-        # Following methodology Section 2.3: Physics Constraints Integration
+        # 6. Physics constraints: L_physics = L_kinematic + L_newton + L_momentum + L_energy + L_contact + L_ODE
         physics_loss = torch.tensor(0.0, device=device)
         ode_temporal_loss = torch.tensor(0.0, device=device)
         contact_dynamics_loss = torch.tensor(0.0, device=device)
@@ -1662,9 +1666,9 @@ class EnhancedP3VAETrainer(ConvVAETrainer):
                         time_span=time_span
                     )
                     ode_temporal_loss = torch.clamp(ode_temporal_loss, max=50.0)  # Prevent explosion
-                
-                # Combine all physics constraints: L_physics = kinematic + newton + momentum + energy + contact
-                physics_loss = pde_physics_loss + contact_dynamics_loss + 0.5 * ode_temporal_loss
+
+                # Combine all physics constraints: L_physics = kinematic + newton + momentum + energy + contact + ODE
+                physics_loss = pde_physics_loss + contact_dynamics_loss + ode_temporal_loss
                 
             except Exception as e:
                 print(f"Warning: Physics constraint computation failed: {e}")
@@ -1680,9 +1684,9 @@ class EnhancedP3VAETrainer(ConvVAETrainer):
             env_reg = torch.mean(z_E ** 2)
             reg_loss = physics_reg + env_reg
         
-        # 8. Follow methodology: L_Total = L_Enhanced + β*L_KL + λ_physics*L_physics + λ_reg*L_reg
+        # 8. L_Total = L_Enhanced + β*L_KL + λ_physics*L_physics + λ_reg*L_reg
         
-        # L_Enhanced = α*L(x, z_I*) + (1-α)*U(x) + λ*L_c(φ; z_I*) (already computed above)
+        # L_Enhanced = α*L(x, z_I*) + (1-α)*U(x) + λ*L_c(φ; z_I*)
         enhanced_loss = total_loss  # This already contains the Enhanced P3-VAE components
         
         # Additional KL regularization (separate from Enhanced P3-VAE components)
