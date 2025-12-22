@@ -1,0 +1,2 @@
+export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGLEW.so
+python scripts/sim_goal_conditioned_policy.py data/compare_pusher_final/08-28-rlkit-pusher-physics-rig_2025_08_28_03_35_01_0000--s-95863/params.pkl --gpu

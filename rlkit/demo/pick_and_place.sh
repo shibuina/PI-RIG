@@ -1,0 +1,2 @@
+export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGLEW.so
+python scripts/sim_goal_conditioned_policy.py data/compare_pick_and_place_final/08-29-full-rig-physics_2025_08_29_13_35_10_0000--s-65108/params.pkl --gpu --H 200
